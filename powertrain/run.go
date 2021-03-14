@@ -8,12 +8,11 @@ import (
 type Option func(o *Options)
 
 func Run(configObj basicmatter.Master, options ...Option) {
-
 	 err := basicmatter.New().Unmarshal(configObj, "")
 	 if err != nil {
 	 	panic(err)
 	 }
-
+	 
 	 opts := defaultOptions()
 	 for _, o := range options {
 		o(opts)
