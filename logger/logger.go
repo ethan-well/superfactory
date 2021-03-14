@@ -18,7 +18,10 @@ var (
 
 func LogBasic(level string, colorFunc func(string2 string) string) func(...interface{}) {
 	return func(args ...interface{}) {
-		pc, fn, line, _ := runtime.Caller(1)
+		pc, fn, line, ok := runtime.Caller(1)
+		if !ok {
+			fn = "??? file missing ???"
+		}
 
 		str := fmt.Sprintf("[%s] in %s [%s:%d] %s\n", level, runtime.FuncForPC(pc).Name(), fn, line, fmt.Sprint(args))
 
@@ -28,7 +31,10 @@ func LogBasic(level string, colorFunc func(string2 string) string) func(...inter
 
 func LogBasicf(level string, colorFunc func(string2 string) string) func(string, ...interface{}) {
 	return func(format string, args ...interface{}) {
-		pc, fn, line, _ := runtime.Caller(1)
+		pc, fn, line, ok := runtime.Caller(1)
+		if !ok {
+			fn = "??? file missing ???"
+		}
 
 		str := fmt.Sprintf("[%s] in %s [%s:%d] %s\n", level, runtime.FuncForPC(pc).Name(), fn, line, fmt.Sprintf(format, args))
 

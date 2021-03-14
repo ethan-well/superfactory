@@ -12,7 +12,7 @@ func Run(configObj basicmatter.Master, options ...Option) {
 	 if err != nil {
 	 	panic(err)
 	 }
-	 
+
 	 opts := defaultOptions()
 	 for _, o := range options {
 		o(opts)
