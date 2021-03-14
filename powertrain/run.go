@@ -1,8 +1,8 @@
 package powertrain
 
 import (
-	"amusingx.fit/amusingx/superfactory/basicmatter"
-	"amusingx.fit/amusingx/superfactory/planet"
+	"amusingx.fit/superfactory/basicmatter"
+	"amusingx.fit/superfactory/planet"
 )
 
 type Option func(o *Options)
