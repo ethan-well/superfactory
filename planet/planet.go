@@ -1,7 +1,7 @@
 package planet
 
 import (
-	"amusingx.fit/superfactory/planet/httpserver"
+	"github.com/ItsWewin/superfactory/planet/httpserver"
 	"net/http"
 )
 
