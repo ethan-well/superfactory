@@ -1,6 +1,9 @@
 package httpserver
 
-import "net/http"
+import (
+	"github.com/gorilla/mux"
+	"net/http"
+)
 
 type HttpServer struct {
 	s http.Server
@@ -26,10 +29,10 @@ func  (s *HttpServer) Init(opt *http.Server) *HttpServer {
 	return planet
 }
 
-func (s *HttpServer) Register(registerRouter func (mux *http.ServeMux)) *HttpServer {
-	mux := http.NewServeMux()
-	registerRouter(mux)
-	s.s.Handler = mux
+func (s *HttpServer) Register(registerRouter func (mux *mux.Router)) *HttpServer {
+	r := mux.NewRouter()
+	registerRouter(r)
+	s.s.Handler = r
 
 	return s
 }

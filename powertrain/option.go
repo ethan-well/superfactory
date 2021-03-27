@@ -2,6 +2,7 @@ package powertrain
 
 import (
 	"github.com/ItsWewin/superfactory/logger"
+	"github.com/gorilla/mux"
 	"net/http"
 	"time"
 )
@@ -12,7 +13,7 @@ type Options struct {
 	RecoverFunc func()
 	InitFunc func()
 	DeferFunc func()
-	RegisterRouter func(mux *http.ServeMux)
+	RegisterRouter func(mux *mux.Router)
 	HttpServerOptions *http.Server
 }
 
