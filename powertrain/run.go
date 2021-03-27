@@ -17,6 +17,8 @@ func Run(configObj basicmatter.Master, options ...Option) {
 	 for _, o := range options {
 		o(opts)
 	 }
+	 defer opts.DeferFunc()
+	 opts.RecoverFunc()
 	 opts.InitFunc()
 
 	 // http 初始化，路由注册，监听端口

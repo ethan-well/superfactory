@@ -1,7 +1,7 @@
 package powertrain
 
 import (
-	"log"
+	"github.com/ItsWewin/superfactory/logger"
 	"net/http"
 	"time"
 )
@@ -9,7 +9,9 @@ import (
 type Options struct {
 	// 服务初始化时候优先执行的方法
 	// 这里进行全局的 panic 处理
+	RecoverFunc func()
 	InitFunc func()
+	DeferFunc func()
 	RegisterRouter func(mux *http.ServeMux)
 	HttpServerOptions *http.Server
 }
@@ -23,14 +25,20 @@ type HttpServerOptions struct {
 }
 
 func defaultOptions() *Options {
-	initFunc := func() {
+	recoverFunc := func() {
 		if err := recover(); err != nil {
-			log.Printf("server Initfunc: %s", err)
+			logger.Errorf("some err recovered: %s", err)
 		}
 	}
 
+	initFunc := func() {
+		logger.Infof("server init")
+	}
+
 	return &Options{
+		RecoverFunc: recoverFunc,
 		InitFunc: initFunc,
+		DeferFunc: func(){},
 		HttpServerOptions: &http.Server{
 			Addr:              ":8080",
 			ReadTimeout:       30 * time.Second,
