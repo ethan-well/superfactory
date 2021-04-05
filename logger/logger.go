@@ -1,19 +1,20 @@
 package logger
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"runtime"
 )
 
 var (
-	Info = LogBasic("info", Teal)
+	Info   = LogBasic("info", Teal)
 	Waring = LogBasic("warn", Yellow)
-	Error = LogBasic("error", Red)
+	Error  = LogBasic("error", Red)
 
-	Infof = LogBasicf("info", Teal)
+	Infof   = LogBasicf("info", Teal)
 	Waringf = LogBasicf("warn", Yellow)
-	Errorf = LogBasicf("error", Red)
+	Errorf  = LogBasicf("error", Red)
 )
 
 func LogBasic(level string, colorFunc func(string2 string) string) func(...interface{}) {
@@ -40,4 +41,13 @@ func LogBasicf(level string, colorFunc func(string2 string) string) func(string,
 
 		log.Printf(colorFunc(str))
 	}
+}
+
+func ToJson(log interface{}) string {
+	by, err := json.Marshal(log)
+	if err != nil {
+		return fmt.Sprintf("%v", log)
+	}
+
+	return string(by)
 }
