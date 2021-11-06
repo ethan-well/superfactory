@@ -37,7 +37,7 @@ func LogBasicf(level string, colorFunc func(string2 string) string) func(string,
 			fn = "??? file missing ???"
 		}
 
-		str := fmt.Sprintf("[%s] in %s [%s:%d] %s\n", level, runtime.FuncForPC(pc).Name(), fn, line, fmt.Sprintf(format, args))
+		str := fmt.Sprintf("[%s] in %s [%s:%d] %s\n", level, runtime.FuncForPC(pc).Name(), fn, line, fmt.Sprintf(format, args...))
 
 		log.Printf(colorFunc(str))
 	}

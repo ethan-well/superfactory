@@ -2,24 +2,23 @@ package mysql
 
 import (
 	"fmt"
-	"github.com/ItsWewin/superfactory/logger"
-	"github.com/jmoiron/sqlx"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/jmoiron/sqlx"
 	"log"
 	"time"
 )
 
 type MySqlDB struct {
-	Database string
+	Database        string
 	UserName        string
 	Password        string
 	Host            string
 	Port            string
 	Protocol        string
-	MaxOpenConn    int
-	MaxIdleConn    int
+	MaxOpenConn     int
+	MaxIdleConn     int
 	ConnMaxLifetime int64
-	SourceName string
+	SourceName      string
 }
 
 func defaultConfig() *MySqlDB {
@@ -28,8 +27,8 @@ func defaultConfig() *MySqlDB {
 		Host:            "localhost",
 		Port:            "3306",
 		Protocol:        "tcp",
-		MaxOpenConn:    100,
-		MaxIdleConn:    10,
+		MaxOpenConn:     100,
+		MaxIdleConn:     10,
 		ConnMaxLifetime: 10 * 60,
 	}
 
@@ -46,14 +45,14 @@ func NewMysqlDB(database, user, password, host string, maxOpenConn, maxIdleConn 
 	}
 
 	return &MySqlDB{
-		Database:  database,
+		Database:        database,
 		UserName:        user,
-		Password: password,
+		Password:        password,
 		Host:            host,
 		Port:            "3306",
 		Protocol:        "tcp",
-		MaxOpenConn:    maxOpenConn,
-		MaxIdleConn:    maxIdleConn,
+		MaxOpenConn:     maxOpenConn,
+		MaxIdleConn:     maxIdleConn,
 		ConnMaxLifetime: ConnMaxLifetime,
 	}
 }
@@ -61,8 +60,6 @@ func NewMysqlDB(database, user, password, host string, maxOpenConn, maxIdleConn 
 func (m *MySqlDB) Connect() *sqlx.DB {
 	m.SourceName = fmt.Sprintf("%s:%s@%s(%s:%s)/%s", m.UserName, m.Password, m.Protocol, m.Host, m.Port, m.Database)
 
-	logger.Infof("sourceName: %s", m.SourceName)
-	
 	pool, err := sqlx.Open("mysql", m.SourceName)
 	if err != nil {
 		panic(err)
@@ -76,7 +73,5 @@ func (m *MySqlDB) Connect() *sqlx.DB {
 		log.Panicf("[Connect] Ping err:%s", err)
 	}
 
-
 	return pool
 }
-

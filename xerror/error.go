@@ -30,6 +30,6 @@ func NewErrorf(err error, code string, format string, opt ...interface{}) *Error
 	return &Error{
 		PError:  err,
 		Code:    code,
-		Message: fmt.Sprintf(format, opt),
+		Message: fmt.Sprintf(format, opt...),
 	}
 }
