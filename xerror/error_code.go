@@ -19,7 +19,8 @@ type ErrorCode struct {
 	BUnexpectedBlankVariable string
 	BUnexpectedData          string
 	BCreateFileFailed        string
-
+	BReadFileFailed        string
+	
 	OtherSystemError  string
 	OtherNetworkError string
 }
@@ -37,12 +38,10 @@ var Code = ErrorCode{
 	SUnimplementedInterface: "S0006",
 
 	BDataIsNotAllow: "B0001",
-
 	BUnexpectedBlankVariable: "B0002",
-
 	BUnexpectedData: "B0003",
-
 	BCreateFileFailed: "B0004",
+	BReadFileFailed: "B0005",
 
 	// 其他服务错误
 	OtherSystemError:  "O0001",
