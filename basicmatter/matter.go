@@ -5,8 +5,11 @@ type Master interface {
 	MaterType() string
 }
 
-func New(m Master) * Master {
-	switch m.MaterType() {
-	case "config": {}
-	}
+type ConfigMater interface {
+	HttpAddr() string
 }
+
+const (
+	MasterConfigBasicSection = "ConfigBasicSection"
+	MasterConfigBasicYaml    = "ConfigBasicYaml"
+)
