@@ -1,17 +1,9 @@
-package basicmatter
+package config
 
 import (
+	"github.com/ItsWewin/superfactory/basicmatter"
 	"testing"
 )
-
-func TestConfig_ParseFile(t *testing.T) {
-	config := New()
-
-	err := config.parseFile("./test.conf")
-	if err != nil {
-		t.Fatalf("some error occurred: %s", err)
-	}
-}
 
 type confObjectTest struct {
 	Port string `config:"base:port"`
@@ -23,7 +15,7 @@ type confObjectTest struct {
 }
 
 func TestConfig_Parse(t *testing.T) {
-	config := New()
+	config := basicmatter.New()
 	obj := confObjectTest{Port: ":8081"}
 
 	err := config.Unmarshal( &obj, "")
