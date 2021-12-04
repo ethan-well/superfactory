@@ -12,6 +12,7 @@ type ErrorCode struct {
 	SUnexpectedErr   string
 	SRedisExecuteErr string
 	SFileExisted     string
+	SRequestBodyDecodeFailed string
 
 	SUnimplementedInterface string
 
@@ -20,6 +21,7 @@ type ErrorCode struct {
 	BUnexpectedData          string
 	BCreateFileFailed        string
 	BReadFileFailed        string
+	
 	
 	OtherSystemError  string
 	OtherNetworkError string
@@ -36,6 +38,7 @@ var Code = ErrorCode{
 	SRedisExecuteErr:        "S0004",
 	SFileExisted:            "S0005",
 	SUnimplementedInterface: "S0006",
+	SRequestBodyDecodeFailed: "S0007",
 
 	BDataIsNotAllow: "B0001",
 	BUnexpectedBlankVariable: "B0002",

@@ -2,5 +2,7 @@ package httputil
 
 const (
 	HeaderContent = "Content-Type"
-	JsonHeaderContent = "application/json"
+	HeaderAccept = "Accept"
+	JsonHeaderAccept = "application/json; charset=utf-8"
+	JsonHeaderContent = "application/json; charset=utf-8"
 )
