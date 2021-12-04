@@ -11,13 +11,17 @@ import (
 type BasicYamlConf struct {
 }
 
-func (c *BasicYamlConf) Unmarshal(configObject interface{}, fileName string) *xerror.Error {
+func NewBasicYamlConf() *BasicYamlConf {
+	return &BasicYamlConf{}
+}
+
+func (c *BasicYamlConf) Unmarshal(configObject interface{}, fileName ...string) *xerror.Error {
 	var configFile string
 	flag.StringVar(&configFile, "cf", "test.conf", "-cf is expected")
 	flag.Parse()
 	
-	if len(fileName) != 0{
-		configFile = fileName
+	if len(fileName) != 0 {
+		configFile = fileName[0]
 	}
 	
 	bt, err := os.ReadFile(configFile)

@@ -10,19 +10,21 @@ import (
 type Options struct {
 	// 服务初始化时候优先执行的方法
 	// 这里进行全局的 panic 处理
-	RecoverFunc func()
-	InitFunc func()
-	DeferFunc func()
-	RegisterRouter func(mux *mux.Router)
+	RecoverFunc       func()
+	InitFunc          func()
+	DeferFunc         func()
+	InitHttpServer    bool
+	InitGrpcServer    bool
+	RegisterRouter    func(mux *mux.Router)
 	HttpServerOptions *http.Server
 }
 
 type HttpServerOptions struct {
-	Addr string
-	ReadTimeout time.Duration
+	Addr              string
+	ReadTimeout       time.Duration
 	ReadHeaderTimeout time.Duration
-	WriteTimeout time.Duration
-	IdleTimeout      time.Duration
+	WriteTimeout      time.Duration
+	IdleTimeout       time.Duration
 }
 
 func defaultOptions() *Options {
@@ -38,8 +40,8 @@ func defaultOptions() *Options {
 
 	return &Options{
 		RecoverFunc: recoverFunc,
-		InitFunc: initFunc,
-		DeferFunc: func(){},
+		InitFunc:    initFunc,
+		DeferFunc:   func() {},
 		HttpServerOptions: &http.Server{
 			Addr:              ":8080",
 			ReadTimeout:       30 * time.Second,

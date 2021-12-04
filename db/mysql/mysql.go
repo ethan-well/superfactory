@@ -35,7 +35,7 @@ func defaultConfig() *MySqlDB {
 	return m
 }
 
-func NewMysqlDB(database, user, password, host string, maxOpenConn, maxIdleConn int, ConnMaxLifetime int64) *MySqlDB {
+func NewMysqlDB(database, user, password, host, port, protocol string, maxOpenConn, maxIdleConn int, ConnMaxLifetime int64) *MySqlDB {
 	defaultConf := defaultConfig()
 
 	if maxOpenConn == 0 {
@@ -49,8 +49,8 @@ func NewMysqlDB(database, user, password, host string, maxOpenConn, maxIdleConn 
 		UserName:        user,
 		Password:        password,
 		Host:            host,
-		Port:            "3306",
-		Protocol:        "tcp",
+		Port:            port,
+		Protocol:        protocol,
 		MaxOpenConn:     maxOpenConn,
 		MaxIdleConn:     maxIdleConn,
 		ConnMaxLifetime: ConnMaxLifetime,
