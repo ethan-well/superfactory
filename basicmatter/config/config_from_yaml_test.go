@@ -54,9 +54,9 @@ func TestBasicYamlConf(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-
+	
 	t.Logf("conf: %s", logger.ToJson(conf))
 	t.Log(conf.Mysql.Plutodb.Addr)
-
+	
 	t.Log("succeed")
 }

@@ -1,7 +1,6 @@
 package config
 
 import (
-	"github.com/ItsWewin/superfactory/basicmatter"
 	"testing"
 )
 
@@ -15,13 +14,13 @@ type confObjectTest struct {
 }
 
 func TestConfig_Parse(t *testing.T) {
-	config := basicmatter.New()
+	config := NewBasicYamlConf()
 	obj := confObjectTest{Port: ":8081"}
-
+	
 	err := config.Unmarshal( &obj, "")
 	if err != nil {
 		t.Fatalf("some error occurred: %s", err)
 	}
-
+	
 	t.Logf("obj: %v", obj)
 }
