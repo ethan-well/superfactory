@@ -80,7 +80,7 @@ func DecodeResponseBody(r *http.Response, dst interface{}) error {
 	}
 	
 	dec := json.NewDecoder(r.Body)
-	dec.DisallowUnknownFields()
+	//dec.DisallowUnknownFields()
 	
 	err := dec.Decode(dst)
 	if err != nil {

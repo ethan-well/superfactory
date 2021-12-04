@@ -10,7 +10,6 @@ type _accessTokenRequest struct {
 	ClientSecret string `json:"client_secret"`
 	Code string `json:"code"`
 	RedirectUrl string `json:"redirect_url"`
-	
 }
 
 type _accessTokenResponse struct {

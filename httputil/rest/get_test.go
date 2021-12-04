@@ -1,6 +1,7 @@
 package rest
 
 import (
+	"github.com/ItsWewin/superfactory/httputil"
 	"github.com/ItsWewin/superfactory/logger"
 	"testing"
 )
@@ -15,14 +16,28 @@ type _response struct {
 	MsgType string `json:"type"`
 }
 
+type _userProfileResponse struct {
+	ID int64 `json:"id"`
+	Login string `json:"login"`
+}
+
 func TestGet(t *testing.T) {
 	if testing.Short() {
 		t.Skip("skip ...")
 	}
-	url := `https://hacker-news.firebaseio.com/v0/item/2921983.json?print=pretty`
+	//url := `https://hacker-news.firebaseio.com/v0/item/2921983.json?print=pretty`
+	url := `https://api.github.com/user`
+	accessToken := "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"
 	
-	var dest _response
-	err := Get(url, &dest)
+	var dest _userProfileResponse
+	opts := func(opts *Options) {
+		opts.Header = map[string]string{
+			httputil.HeaderContent: httputil.JsonHeaderContent,
+			httputil.HeaderAuthorization: "token " + accessToken,
+		}
+	}
+	
+	err := Get(url, &dest, opts)
 	if err != nil {
 		t.Fatal(err)
 	}

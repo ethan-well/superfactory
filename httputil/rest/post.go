@@ -9,7 +9,7 @@ import (
 	"reflect"
 )
 
-func Post(url string, body interface{}, dest interface{}) *xerror.Error {
+func Post(url string, body interface{}, dest interface{}, opts ...RequestOptions) *xerror.Error {
 	if reflect.TypeOf(dest).Kind() != reflect.Ptr {
 		return xerror.NewErrorf(nil, xerror.Code.CParamsError, "type of 'dest' is must a ptr")
 	}
@@ -28,8 +28,14 @@ func Post(url string, body interface{}, dest interface{}) *xerror.Error {
 	if err != nil {
 		return xerror.NewErrorf(err, xerror.Code.OtherNetworkError, "new request failed")
 	}
-	req.Header.Add(httputil.HeaderContent, httputil.JsonHeaderContent)
-	req.Header.Add(httputil.HeaderAccept, httputil.JsonHeaderAccept)
+	
+	reqOpts := defaultOpts
+	for _, o := range opts {
+		o(&reqOpts)
+	}
+	
+	// set request header
+	setHeader(req, reqOpts)
 	
 	resp, err := client.Do(req)
 	if err != nil {
