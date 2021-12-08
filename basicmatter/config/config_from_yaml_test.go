@@ -8,14 +8,14 @@ import (
 
 type Config struct {
 	Server *Server           `yaml:"server"`
-	Mysql  Mysqls `yaml:"mysql"`
+	Mysql  Mysqls            `yaml:"mysql"`
 	Redis  map[string]*Redis `yaml:"redis"`
 }
 
 type Server struct {
 	Name       string      `yaml:"name"`
-	HttpServer *HttpServer `yaml:"httpServer"`
-	GrpcServer *GrpcServer `yaml:"grpcServer"`
+	HttpServer *HttpServer `yaml:"http_server"`
+	GrpcServer *GrpcServer `yaml:"grpc_server"`
 }
 
 type HttpServer struct {
@@ -38,14 +38,14 @@ type Mysql struct {
 	Password     string `yaml:"password"`
 	Addr         string `yaml:"addr"`
 	Protocol     string `yaml:"protocol"`
-	MaxLifeTime  int    `yaml:"maxLifeTime"`
-	MaxOpenConns int    `yaml:"maxOpenConns"`
-	MaxIdleConns int    `yaml:"maxIdleConns"`
+	MaxLifeTime  int    `yaml:"max_life_time"`
+	MaxOpenConns int    `yaml:"max_open_conns"`
+	MaxIdleConns int    `yaml:"max_idle_conns"`
 }
 
 type Redis struct {
 	Addr string `yaml:"addr"`
-	DBNo string `yaml:"dbNo"`
+	DBNo string `yaml:"db_no"`
 }
 
 func TestBasicYamlConf(t *testing.T) {
@@ -54,9 +54,9 @@ func TestBasicYamlConf(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	
+
 	t.Logf("conf: %s", logger.ToJson(conf))
 	t.Log(conf.Mysql.Plutodb.Addr)
-	
+
 	t.Log("succeed")
 }
