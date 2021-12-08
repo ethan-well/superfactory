@@ -30,7 +30,7 @@ func TestPost(t *testing.T) {
 		Code:         "",
 	}
 	var response _accessTokenResponse
-	err := Post(url, body, &response)
+	_, err := Post(url, body, &response)
 	if err != nil {
 		t.Fatal("some error: ", err)
 	}
