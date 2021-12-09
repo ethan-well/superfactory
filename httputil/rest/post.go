@@ -4,9 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"github.com/ItsWewin/superfactory/httputil"
-	"github.com/ItsWewin/superfactory/logger"
 	"github.com/ItsWewin/superfactory/xerror"
-	"io/ioutil"
 	"net/http"
 	"reflect"
 )
@@ -43,16 +41,6 @@ func Post(url string, body interface{}, dest interface{}, opts ...RequestOptions
 	if err != nil {
 		return nil, xerror.NewErrorf(nil, xerror.Code.OtherNetworkError, "request failed")
 	}
-
-	bt, _ := ioutil.ReadAll(resp.Body)
-
-	logger.Errorf("resp resp resp resp: %s", string(bt))
-
-	return nil, nil
-
-	//if dest == nil {
-	//	return resp, nil
-	//}
 
 	err = httputil.DecodeResponseBody(resp, &dest)
 	if err != nil {
