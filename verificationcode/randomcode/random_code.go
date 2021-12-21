@@ -2,9 +2,9 @@ package randomcode
 
 import (
 	"fmt"
+	"github.com/ItsWewin/superfactory/aerror"
 	"github.com/ItsWewin/superfactory/logger"
 	"github.com/ItsWewin/superfactory/verificationcode/verificationcode"
-	"github.com/ItsWewin/superfactory/xerror"
 	"math/rand"
 	"sync"
 	"time"
@@ -42,7 +42,7 @@ func RandomCodeStoreInit() *RandomCodeStore {
 	return randomCodeStore
 }
 
-func (c *RandomCodeStore) Generate() (verificationcode.VerificationCode, *xerror.Error) {
+func (c *RandomCodeStore) Generate() (verificationcode.VerificationCode, aerror.Error) {
 	code := generateCode()
 
 	c.lock.Lock()

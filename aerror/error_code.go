@@ -1,4 +1,4 @@
-package xerror
+package aerror
 
 type ErrorCode struct {
 	CParamsError    string

@@ -1,11 +1,11 @@
 package powertrain
 
 import (
+	"github.com/ItsWewin/superfactory/aerror"
 	"github.com/ItsWewin/superfactory/basicmatter"
 	"github.com/ItsWewin/superfactory/basicmatter/config"
 	"github.com/ItsWewin/superfactory/logger"
 	"github.com/ItsWewin/superfactory/planet"
-	"github.com/ItsWewin/superfactory/xerror"
 )
 
 type Option func(o *Options)
@@ -30,7 +30,7 @@ func Run(configObj basicmatter.Master, options ...Option) {
 	}
 }
 
-func startHttpServer(configObj interface{}, opts *Options) *xerror.Error {
+func startHttpServer(configObj interface{}, opts *Options) aerror.Error {
 	if !opts.InitHttpServer {
 		logger.Infof("no need init http server")
 		return nil
@@ -41,7 +41,7 @@ func startHttpServer(configObj interface{}, opts *Options) *xerror.Error {
 	conf, ok := configObj.(basicmatter.ConfigMater)
 	if !ok {
 		logger.Infof("无法获取 http addr")
-		return xerror.NewErrorf(nil, xerror.Code.BUnexpectedData, "conf error")
+		return aerror.NewErrorf(nil, aerror.Code.BUnexpectedData, "conf error")
 	}
 
 	// http 初始化，路由注册，监听端口
