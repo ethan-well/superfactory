@@ -1,8 +1,8 @@
 package rest
 
 import (
+	"github.com/ItsWewin/superfactory/aerror"
 	"github.com/ItsWewin/superfactory/httputil"
-	"github.com/ItsWewin/superfactory/xerror"
 	"net/http"
 	"reflect"
 )
@@ -17,38 +17,38 @@ var defaultOpts = Options{Header: map[string]string{
 	httputil.HeaderContent: httputil.JsonHeaderContent,
 }}
 
-func Get(url string, dest interface{}, opts ...RequestOptions) *xerror.Error {
+func Get(url string, dest interface{}, opts ...RequestOptions) aerror.Error {
 	if reflect.TypeOf(dest).Kind() != reflect.Ptr {
-		return xerror.NewErrorf(nil, xerror.Code.CParamsError, "type of 'dest' is must a ptr")
+		return aerror.NewErrorf(nil, aerror.Code.CParamsError, "type of 'dest' is must a ptr")
 	}
-	
+
 	client := &http.Client{
 		CheckRedirect: redirectPolicyFunc,
 	}
-	
+
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
-		return xerror.NewErrorf(err, xerror.Code.OtherNetworkError, "new request failed")
+		return aerror.NewErrorf(err, aerror.Code.OtherNetworkError, "new request failed")
 	}
-	
+
 	reqOpts := defaultOpts
 	for _, o := range opts {
 		o(&reqOpts)
 	}
-	
+
 	// set request header
 	setHeader(req, reqOpts)
-	
+
 	resp, err := client.Do(req)
 	if err != nil {
-		return xerror.NewErrorf(nil, xerror.Code.OtherNetworkError, "request failed")
+		return aerror.NewErrorf(nil, aerror.Code.OtherNetworkError, "request failed")
 	}
-	
+
 	err = httputil.DecodeResponseBody(resp, &dest)
 	if err != nil {
-		return xerror.NewErrorf(err, xerror.Code.SRequestBodyDecodeFailed, "decode response body failed")
+		return aerror.NewErrorf(err, aerror.Code.SRequestBodyDecodeFailed, "decode response body failed")
 	}
-	
+
 	return nil
 }
 

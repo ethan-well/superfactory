@@ -1,4 +1,4 @@
-package xerror
+package aerror
 
 type ErrorMessage struct {
 	ParamsError string
