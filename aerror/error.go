@@ -26,10 +26,10 @@ func (e *aError) Message() string {
 
 func (e *aError) Error() string {
 	if e.PError == nil {
-		return fmt.Sprintf("code: %s, message: %s", e.Code, e.Message)
+		return fmt.Sprintf("code: %s, message: %s", e.Code(), e.Message())
 	}
 
-	return fmt.Sprintf("%s, code: %s, message: %s", e.PError, e.Code, e.Message)
+	return fmt.Sprintf("%s, code: %s, message: %s", e.PError, e.Code(), e.Message())
 }
 
 func NewError(err error, code string, message string) *aError {
