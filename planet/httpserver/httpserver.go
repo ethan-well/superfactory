@@ -9,9 +9,9 @@ type HttpServer struct {
 	s http.Server
 }
 
-func  (s *HttpServer) Init(opt *http.Server) *HttpServer {
+func (s *HttpServer) Init(opt *http.Server) *HttpServer {
 	planet := &HttpServer{}
-	planet.s	= http.Server{
+	planet.s = http.Server{
 		Addr:              opt.Addr,
 		TLSConfig:         opt.TLSConfig,
 		ReadTimeout:       opt.ReadTimeout,
@@ -29,7 +29,7 @@ func  (s *HttpServer) Init(opt *http.Server) *HttpServer {
 	return planet
 }
 
-func (s *HttpServer) Register(registerRouter func (mux *mux.Router)) *HttpServer {
+func (s *HttpServer) Register(registerRouter func(mux *mux.Router)) *HttpServer {
 	r := mux.NewRouter()
 	registerRouter(r)
 	s.s.Handler = r

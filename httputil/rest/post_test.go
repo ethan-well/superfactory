@@ -6,16 +6,16 @@ import (
 )
 
 type _accessTokenRequest struct {
-	ClientID string `json:"client_id"`
+	ClientID     string `json:"client_id"`
 	ClientSecret string `json:"client_secret"`
-	Code string `json:"code"`
-	RedirectUrl string `json:"redirect_url"`
+	Code         string `json:"code"`
+	RedirectUrl  string `json:"redirect_url"`
 }
 
 type _accessTokenResponse struct {
 	AccessToken string `json:"access_token"`
-	Scope string `json:"scope"`
-	TokenType string `json:"token_type"`
+	Scope       string `json:"scope"`
+	TokenType   string `json:"token_type"`
 }
 
 func TestPost(t *testing.T) {
@@ -23,7 +23,7 @@ func TestPost(t *testing.T) {
 		t.Skip("skip ...")
 	}
 	url := `https://github.com/login/oauth/access_token`
-	
+
 	body := _accessTokenRequest{
 		ClientID:     "",
 		ClientSecret: "",
@@ -34,7 +34,6 @@ func TestPost(t *testing.T) {
 	if err != nil {
 		t.Fatal("some error: ", err)
 	}
-	
+
 	t.Logf("resp: %s", logger.ToJson(response))
 }
-

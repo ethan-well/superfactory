@@ -19,4 +19,3 @@ func Color(colorString string) func(string) string {
 	}
 	return sprint
 }
-
