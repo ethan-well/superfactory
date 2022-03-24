@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	int64ArrStringFormat = `$\[(\d,)+\]$`
+	int64ArrStringFormat = `^\[((\d,)*\d*)\]$`
 )
 
 func ArrStringToInt64Arr(str string) ([]int64, aerror.Error) {
@@ -23,11 +23,16 @@ func ArrStringToInt64Arr(str string) ([]int64, aerror.Error) {
 	}
 
 	if !matched {
-		return arr, aerror.NewErrorf(nil, aerror.Code.BUnexpectedData, "expected format: %s", int64ArrStringFormat)
+		return arr, aerror.NewErrorf(nil, aerror.Code.BUnexpectedData, "expected format: %s, get: %s", int64ArrStringFormat, str)
 	}
 
 	str = strings.TrimLeft(str, "[")
 	str = strings.TrimRight(str, "]")
+
+	if len(str) == 0 {
+		return arr, nil
+	}
+
 	arrStr := strings.Split(str, ",")
 	if len(arrStr) == 0 {
 		return arr, nil
