@@ -22,6 +22,7 @@ type ErrorCode struct {
 	BUnexpectedData          string
 	BCreateFileFailed        string
 	BReadFileFailed          string
+	BObjectToAnyFailed       string
 
 	OtherSystemError  string
 	OtherNetworkError string
@@ -46,6 +47,7 @@ var Code = ErrorCode{
 	BUnexpectedData:          "B0003",
 	BCreateFileFailed:        "B0004",
 	BReadFileFailed:          "B0005",
+	BObjectToAnyFailed:       "B0006",
 
 	// 其他服务错误
 	OtherSystemError:  "O0001",
