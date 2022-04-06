@@ -78,3 +78,18 @@ func (s *Int64Set) Intersection(set *Int64Set) []int64 {
 
 	return values
 }
+
+func (s *Int64Set) DifferenceSet(set *Int64Set) []int64 {
+	var values []int64
+	s.values.Range(func(key, value interface{}) bool {
+		v, _ := key.(int64)
+
+		if !set.HasMember(v) {
+			values = append(values, v)
+		}
+
+		return true
+	})
+
+	return values
+}
