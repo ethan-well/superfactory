@@ -39,7 +39,7 @@ func Post(url string, body interface{}, dest interface{}, opts ...RequestOptions
 
 	resp, err := client.Do(req)
 	if err != nil {
-		return nil, aerror.NewErrorf(nil, aerror.Code.OtherNetworkError, "request failed")
+		return nil, aerror.NewErrorf(err, aerror.Code.OtherNetworkError, "request failed")
 	}
 
 	err = httputil.DecodeResponseBody(resp, &dest)
